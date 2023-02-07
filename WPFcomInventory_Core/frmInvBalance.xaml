@@ -1,0 +1,14 @@
+﻿<Window x:Class="WPFcomInventory_Core.frmInvBalance"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFcomInventory_Core"
+        mc:Ignorable="d"
+        Title="Inventory Balance" Height="450" Width="800">
+    <Grid>
+        <ComboBox HorizontalAlignment="Left" Margin="85,22,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.44,-0.936" SelectionChanged="ComboBox_SelectionChanged"/>
+        <Label Content="Partcode" HorizontalAlignment="Left" Margin="22,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.527,-1.655" FontWeight="Bold"/>
+
+    </Grid>
+</Window>
