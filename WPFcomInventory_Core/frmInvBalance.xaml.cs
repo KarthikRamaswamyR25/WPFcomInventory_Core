@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFERPQuickLauncher_Core;
 
 namespace WPFcomInventory_Core
 {
@@ -21,11 +22,20 @@ namespace WPFcomInventory_Core
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
+            //ClSFormShow myVar = new ClSFormShow();
+            //MessageBoxResult resultc = MessageBox.Show(myVar.strConn);
+
+            string strERPConn = ERPClass.MyConn;
+            //MessageBoxResult resultc = MessageBox.Show(strERPConn);
+
+            lblConnString.Content = strERPConn;
+
+            //MessageBoxResult result = MessageBox.Show(lblConnString.Content);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
     }
 }

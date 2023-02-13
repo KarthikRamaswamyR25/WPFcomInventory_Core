@@ -5,4 +5,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\WPFERPQuickLauncher_Core\WPFERPQuickLauncher_Core\WPFERPQuickLauncher_Core\WPFERPQuickLauncher_Core.csproj" />
+  </ItemGroup>
+
 </Project>

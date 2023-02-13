@@ -9,6 +9,7 @@
     <Grid>
         <ComboBox HorizontalAlignment="Left" Margin="85,22,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.44,-0.936" SelectionChanged="ComboBox_SelectionChanged"/>
         <Label Content="Partcode" HorizontalAlignment="Left" Margin="22,22,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.527,-1.655" FontWeight="Bold"/>
+        <Label x:Name="lblConnString" Content="" HorizontalAlignment="Center" Height="31" Margin="0,384,0,0" VerticalAlignment="Top" Width="780"/>
 
     </Grid>
 </Window>
