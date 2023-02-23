@@ -26,10 +26,10 @@ namespace WPFcomInventory_Core
             //ClSFormShow myVar = new ClSFormShow();
             //MessageBoxResult resultc = MessageBox.Show(myVar.strConn);
 
-            string strERPConn = ERPClass.MyConn;
+            string strERPConn = ERPClass.g_Conn;
             //MessageBoxResult resultc = MessageBox.Show(strERPConn);
 
-            lblConnString.Content = strERPConn;
+            //lblConnString.Content = strERPConn;
 
             //MessageBoxResult result = MessageBox.Show(lblConnString.Content);
         }
