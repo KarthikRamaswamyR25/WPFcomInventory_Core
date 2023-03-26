@@ -1,0 +1,88 @@
+1. UI to enable virtualization(the grid will only render visible rows and columns making the [performance faster)
+
+<telerik:RadGridView x:Name="grid" 
+                     ItemsSource="{Binding MyCollection}" 
+                     EnableRowVirtualization="True" 
+                     EnableColumnVirtualization="True"
+                     VirtualizingStackPanel.VirtualizationMode="Recycling"
+					 CellEditEnded="RadGridView_CellEditEnded">
+   <telerik:RadGridView.Columns>
+      <!-- define columns here -->
+   </telerik:RadGridView.Columns>
+</telerik:RadGridView>
+
+2. Load Data using Entity Framework
+
+// Declare the collection as a field in your class
+private ObservableCollection<MyEntity> MyCollection;
+
+private async void LoadData()
+{
+    // connect to the database and retrieve the data
+    using (var dbContext = new MyDbContext())
+    {
+        var data = await dbContext.MyTable.ToListAsync();
+
+        // perform manipulations to the data
+        foreach (var item in data)
+        {
+            item.SomeProperty = SomeManipulation(item.SomeProperty);
+        }
+
+        // bind the data to the RadGridView
+        MyCollection = new ObservableCollection<MyEntity>(data);
+        grid.ItemsSource = MyCollection;
+    }
+}
+
+3. Save changes after edit - create a save button and update on button click 
+private async void SaveChanges()
+{
+    // save changes to the database
+    using (var dbContext = new MyDbContext())
+    {
+        dbContext.UpdateRange(MyCollection);
+        await dbContext.SaveChangesAsync();
+    }
+
+    // refresh the grid
+    grid.Items.Refresh();
+}
+
+4. On every cell edit you can call this method
+private async void RadGridView_CellEditEnded(object sender, GridViewCellEditEndedEventArgs e)
+{
+    // Check that the edit was committed
+    if (e.EditAction == GridViewEditAction.Commit)
+    {
+        // Get the edited data item and column
+        MyEntity item = e.Row.DataContext as MyEntity;
+        GridViewColumn column = e.Column;
+
+        // Update the corresponding database record asynchronously
+        await UpdateDatabaseRecordAsync(item, column);
+    }
+}
+
+private async Task UpdateDatabaseRecordAsync(MyEntity item, GridViewColumn column)
+{
+    // Get the name of the column that was edited
+    string columnName = (column.Header as TextBlock)?.Text;
+
+    // Construct an SQL query to update the corresponding record
+    string query = $"UPDATE MyTable SET {columnName} = @Value WHERE TablePrimaryKey = @TablePrimaryKey";
+
+    // Create a SqlCommand object with the query and connection string
+    using (SqlConnection connection = new SqlConnection(connectionString))
+    using (SqlCommand command = new SqlCommand(query, connection))
+    {
+        // Set the parameter values
+        command.Parameters.AddWithValue("@Value", item.Value);
+        command.Parameters.AddWithValue("@TablePrimaryKey", item.TablePrimaryKey);
+
+        // Open the connection and execute the query asynchronously
+        await connection.OpenAsync();
+        await command.ExecuteNonQueryAsync();
+    }
+}
+
